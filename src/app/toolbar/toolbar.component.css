@@ -1,0 +1,12 @@
+.menu-icon {
+    margin-left: 15px;
+    margin-right: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.fill {
+    flex: 1 1 auto;
+}

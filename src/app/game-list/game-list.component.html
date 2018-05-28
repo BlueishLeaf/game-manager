@@ -1,0 +1,11 @@
+<div>
+    <form>
+        <h1>Search For Games</h1>
+        <mat-form-field>
+            <input matInput placeholder="Title" [(ngModel)]="listFilter" name="title">
+        </mat-form-field>
+    </form>
+</div>
+<div *ngFor="let game of fGames">
+    <mat-card>{{ game.title }}</mat-card>
+</div>
