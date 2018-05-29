@@ -21,10 +21,6 @@ export class NavigationComponent implements OnInit {
     this.AuthService.login();
   }
 
-  printProfile(): void {
-    console.log(this.profile.nickname);
-  }
-
   logout(): void {
     this.AuthService.logout();
   }
