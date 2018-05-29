@@ -16,12 +16,13 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <button (click)='sidenav.toggle()' mat-mini-fab class="menu-icon">
+      <button (click)='printProfile()' mat-mini-fab class="menu-icon"> <!--sidenav.toggle()-->
         <mat-icon>menu</mat-icon>
       </button>
       <span>Game Manager</span>
       <span class="fill"></span>
-      <button mat-raised-button>Profile</button>
+      <button mat-raised-button (click)="login()" *ngIf="!AuthService.isAuthenticated()">Login</button>
+      <button mat-raised-button (click)="logout()" *ngIf="AuthService.isAuthenticated()">Logout</button>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GamesApiService } from '../services/games-api.service';
-import { IGame } from '../game-model/igame';
+import { IGame } from '../models/igame';
 
 @Component({
   selector: 'app-game-list',

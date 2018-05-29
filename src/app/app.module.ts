@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 // tslint:disable-next-line:max-line-length
-import { MatSidenavModule, MatListModule, MatDividerModule, MatGridListModule, MatIconModule, MatToolbarModule, MatButtonModule, MatInputModule, MatCardModule } from '@angular/material';
+import { MatSidenavModule, MatListModule, MatDividerModule, MatGridListModule, MatIconModule, MatToolbarModule, MatButtonModule, MatInputModule, MatCardModule, MatProgressSpinnerModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { GamesApiService } from './services/games-api.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -11,13 +11,18 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { RouterModule } from '@angular/router';
+import { Auth0ApiService } from './services/auth0-api.service';
+import { CallbackComponent } from './callback/callback.component';
+import { BacklogComponent } from './backlog/backlog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GameListComponent,
     NavigationComponent,
-    ToolbarComponent
+    CallbackComponent,
+    ToolbarComponent,
+    BacklogComponent
   ],
   imports: [
     BrowserModule,
@@ -33,13 +38,17 @@ import { RouterModule } from '@angular/router';
     MatButtonModule,
     MatInputModule,
     MatCardModule,
+    MatProgressSpinnerModule,
     RouterModule.forRoot([
       { path: 'browse', component: GameListComponent },
-      { path: '', redirectTo: 'browse', pathMatch: 'full' }
+      { path: 'backlog/:_id', component: BacklogComponent },
+      { path: '', redirectTo: 'browse', pathMatch: 'full' },
+      { path: 'callback', component: CallbackComponent },
+      { path: '**', redirectTo: '' }
 
     ])
   ],
-  providers: [GamesApiService],
+  providers: [GamesApiService, Auth0ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
