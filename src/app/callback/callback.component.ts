@@ -10,6 +10,7 @@ export class CallbackComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log('here i am');
   }
 
 }

@@ -46,6 +46,7 @@ import { ProfileComponent } from './profile/profile.component';
       { path: 'backlog/:_id', component: BacklogComponent },
       { path: '', redirectTo: 'browse', pathMatch: 'full' },
       { path: 'profile', component: ProfileComponent },
+      { path: 'callback', component: CallbackComponent },
       { path: '**', redirectTo: '' }
 
     ])

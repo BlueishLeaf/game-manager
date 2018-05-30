@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Auth0ApiService } from '../services/auth0-api.service';
-import { IUser } from '../models/iuser';
-import { IProfile } from '../models/iprofile';
 
 @Component({
   selector: 'app-navigation',
@@ -9,8 +7,8 @@ import { IProfile } from '../models/iprofile';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
-  profile: any;
-  user: IUser;
+  // profile: any;
+  // user: IUser;
 
   constructor(public AuthService: Auth0ApiService) { }
 

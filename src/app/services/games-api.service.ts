@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IGame } from '../models/IGame';
-import { IProfile } from '../models/iprofile';
+import { IUserData, User } from '../models/Users';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +17,14 @@ export class GamesApiService {
     return this._http.get<IGame[]>(this._getGamesUrl);
   }
 
-  insertUser(userObject: IProfile): Observable<IProfile> {
-    let encodedData = JSON.stringify(userObject);
-    //let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-    //let options = new RequestOptions({ headers: headers });
-    return this._http.post(encodedData, this._insertUserUrl);
+  insertUser(userObject: IUserData): Promise<User> {
+    const encodedData = JSON.stringify({'email': userObject.email, 'nickname': userObject.nickname, 'backlog': []});
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.post<User>( this._insertUserUrl, encodedData, { headers: headers }).toPromise();
+  }
+
+  public sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   handleError(err: HttpErrorResponse) {

@@ -1,29 +1,33 @@
-<mat-sidenav-container>
-  <mat-sidenav #sidenav mode='push' class="nav-container">
-    <mat-nav-list>
-      <a mat-list-item href="">
-        <mat-icon class="nav-icon">games</mat-icon>Browse Games</a>
-      <mat-divider></mat-divider>
-      <a mat-list-item href="">
-        <mat-icon class="nav-icon">videogame_asset</mat-icon>My Backlog</a>
-      <mat-divider></mat-divider>
-      <a mat-list-item href="">
-        <mat-icon class="nav-icon">person</mat-icon>Community</a>
-      <mat-divider></mat-divider>
-      <a mat-list-item href="">
-        <mat-icon class="nav-icon">info</mat-icon>About Us</a>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <button (click)='sidenav.toggle()' mat-mini-fab class="menu-icon"> <!--sidenav.toggle()-->
-        <mat-icon>menu</mat-icon>
-      </button>
-      <span>Game Manager</span>
-      <span class="fill"></span>
-      <button mat-raised-button (click)="login()" *ngIf="!AuthService.isAuthenticated()">Login</button>
-      <button mat-raised-button (click)="logout()" *ngIf="AuthService.isAuthenticated()">Logout</button>
-    </mat-toolbar>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<div>
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav mode='push' class="nav-container">
+      <mat-nav-list>
+        <a mat-list-item href="">
+          <mat-icon class="nav-icon">games</mat-icon>Browse Games</a>
+        <mat-divider></mat-divider>
+        <a mat-list-item href="">
+          <mat-icon class="nav-icon">videogame_asset</mat-icon>My Backlog</a>
+        <mat-divider></mat-divider>
+        <a mat-list-item href="">
+          <mat-icon class="nav-icon">person</mat-icon>Community</a>
+        <mat-divider></mat-divider>
+        <a mat-list-item href="">
+          <mat-icon class="nav-icon">info</mat-icon>About Us</a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar color="primary">
+        <button (click)='sidenav.toggle()' mat-mini-fab class="menu-icon">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span>Game Manager</span>
+        <span class="fill"></span>
+        <button mat-raised-button (click)="login()" *ngIf="!AuthService.isAuthenticated()">Login</button>
+        <button mat-raised-button (click)="logout()" *ngIf="AuthService.isAuthenticated()">Logout</button>
+      </mat-toolbar>
+
+      <router-outlet></router-outlet>
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

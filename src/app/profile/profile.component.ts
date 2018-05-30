@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IUser } from '../models/iuser';
 import { Auth0ApiService } from '../services/auth0-api.service';
-import { IProfile } from '../models/iprofile';
 import { GamesApiService } from '../services/games-api.service';
+import { timer, Observable } from 'rxjs';
+import { IUserData, User } from '../models/Users';
 
 @Component({
   selector: 'app-profile',
@@ -10,17 +10,21 @@ import { GamesApiService } from '../services/games-api.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  user: IProfile
+  userData: IUserData;
+  userProfile: User;
 
   constructor(public AuthService: Auth0ApiService, private _gamesService: GamesApiService) { }
 
   ngOnInit() {
-    this.AuthService.getProfile().subscribe(res => {
-      this.user = res;
-      this._gamesService.insertUser(this.user).subscribe(res => {
-        console.log(res);
+    this.fetchProfile();
+  }
+
+  fetchProfile(): void {
+    this.AuthService.getUserData().then(data => {
+      this.userData = data;
+      this._gamesService.insertUser(this.userData).then(profile => {
+        this.userProfile = new User(profile.email, profile.nickname, profile.backlog);
       });
     });
   }
-
 }
