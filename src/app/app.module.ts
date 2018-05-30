@@ -14,6 +14,7 @@ import { RouterModule } from '@angular/router';
 import { Auth0ApiService } from './services/auth0-api.service';
 import { CallbackComponent } from './callback/callback.component';
 import { BacklogComponent } from './backlog/backlog.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { BacklogComponent } from './backlog/backlog.component';
     NavigationComponent,
     CallbackComponent,
     ToolbarComponent,
-    BacklogComponent
+    BacklogComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,7 @@ import { BacklogComponent } from './backlog/backlog.component';
       { path: 'browse', component: GameListComponent },
       { path: 'backlog/:_id', component: BacklogComponent },
       { path: '', redirectTo: 'browse', pathMatch: 'full' },
-      { path: 'callback', component: CallbackComponent },
+      { path: 'profile', component: ProfileComponent },
       { path: '**', redirectTo: '' }
 
     ])

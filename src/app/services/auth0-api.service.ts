@@ -5,6 +5,7 @@ import * as auth0 from 'auth0-js';
 import { IUser } from '../models/iuser';
 import { IProfile } from '../models/iprofile';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 (window as any).global = window;
 
@@ -12,13 +13,14 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class Auth0ApiService {
-  user: IProfile;
+  private _currentAccessToken: string;
+  
   auth0 = new auth0.WebAuth({
     clientID: 'xhgQ3dEVDvItwPYeQfAqh9RkVy4bvpFn',
     domain: 'game-manager.eu.auth0.com',
     responseType: 'token id_token',
     audience: 'https://game-manager.eu.auth0.com/userinfo',
-    redirectUri: 'http://localhost:4200/callback',
+    redirectUri: 'http://localhost:4200/profile',
     scope: 'openid email profile'
   });
 
@@ -31,9 +33,9 @@ export class Auth0ApiService {
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
+        this._currentAccessToken = authResult.accessToken;
         window.location.hash = '';
         this.setSession(authResult);
-        this.getProfile(authResult.accessToken);
         this.router.navigate(['/browse']);
       } else if (err) {
         this.router.navigate(['/browse']);
@@ -50,13 +52,9 @@ export class Auth0ApiService {
     localStorage.setItem('expires_at', expiresAt);
   }
 
-  public getProfile(token): void {
-    const url = 'https://game-manager.eu.auth0.com/userinfo?access_token=' + token;
-    const profile = this._http.get<IProfile>(url);
-    profile.subscribe(response => {
-      this.user = response;
-      console.log(this.user);
-    });
+  public getProfile(): Observable<IProfile> {
+    const url = 'https://game-manager.eu.auth0.com/userinfo?access_token=' + this._currentAccessToken;
+    return this._http.get<IProfile>(url);
   }
 
   public logout(): void {
