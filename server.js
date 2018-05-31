@@ -17,7 +17,7 @@ app.all("/*", (req, res, next) => {
 });
 
 app.get('/api/getGames', (req,res) => {
-    MongoClient.connect(gamesCollectionUrl, (err,db) => {
+    MongoClient.connect(gamesCollectionUrl, { useNewUrlParser: true }, (err,db) => {
         if (err) throw err;
         const dbo = db.db('games');
         dbo.collection('game').find({}).toArray((err, result) => {
@@ -30,7 +30,7 @@ app.get('/api/getGames', (req,res) => {
 
 app.post('/api/insertUser', (req,res) => {
     let dbObject = req.body;
-    MongoClient.connect(usersCollectionUrl, (err,db) => {
+    MongoClient.connect(usersCollectionUrl, { useNewUrlParser: true }, (err,db) => {
         if (err) throw err;
         const dbo = db.db('games');
         let query = { email: dbObject.email };
