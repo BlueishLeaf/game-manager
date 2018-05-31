@@ -32,7 +32,6 @@ export class Auth0ApiService {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this._currentAccessToken = authResult.accessToken;
-        // window.location.hash = '';
         this.setSession(authResult);
         this.router.navigate(['/profile']);
       } else if (err) {
@@ -51,7 +50,7 @@ export class Auth0ApiService {
   }
 
   public async getUserData(): Promise<IUserData> {
-    await this.sleep(1000);
+    await this.sleep(50);
     const url = 'https://game-manager.eu.auth0.com/userinfo?access_token=' + this._currentAccessToken;
     return this._http.get<IUserData>(url).toPromise();
   }

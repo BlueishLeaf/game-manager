@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit {
       this.userData = data;
       this._gamesService.insertUser(this.userData).then(profile => {
         this.userProfile = new User(profile.email, profile.nickname, profile.backlog);
+        sessionStorage.setItem('currentUser', JSON.stringify(this.userProfile));
       });
     });
   }

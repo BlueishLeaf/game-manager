@@ -43,7 +43,7 @@ import { ProfileComponent } from './profile/profile.component';
     MatProgressSpinnerModule,
     RouterModule.forRoot([
       { path: 'browse', component: GameListComponent },
-      { path: 'backlog/:_id', component: BacklogComponent },
+      { path: 'backlog', component: BacklogComponent },
       { path: '', redirectTo: 'browse', pathMatch: 'full' },
       { path: 'profile', component: ProfileComponent },
       { path: 'callback', component: CallbackComponent },

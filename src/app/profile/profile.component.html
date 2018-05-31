@@ -1,4 +1,10 @@
-<div *ngIf="userProfile">
-  <h1>{{ userProfile.email }}</h1>
-  <h1>{{ userProfile.nickname }}</h1>
+<div class="container" *ngIf="userProfile">
+  <mat-card>
+    <mat-card-title>User Profile</mat-card-title>
+    <h1>{{ userProfile.email }}</h1>
+    <h1>{{ userProfile.nickname }}</h1>
+    <mat-card-actions>
+      <button mat-raised-button>Edit</button>
+    </mat-card-actions>
+  </mat-card>
 </div>

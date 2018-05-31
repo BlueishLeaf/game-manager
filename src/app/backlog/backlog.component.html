@@ -1,3 +1,9 @@
-<p>
-  backlog works!
-</p>
+<div *ngIf="backlogExists">
+  <h1>Your Gaming Backlog</h1>
+  <ul *ngFor="let game of backlogGames">
+    <li>{{ game.title }}</li>
+  </ul>
+</div>
+<div *ngIf="!backlogExists">
+  <h1>You have no backlog!</h1>
+</div>

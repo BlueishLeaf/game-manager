@@ -10,6 +10,7 @@ import { IUserData, User } from '../models/Users';
 export class GamesApiService {
   private _getGamesUrl = 'http://localhost/api/getGames/';
   private _insertUserUrl = 'http://localhost/api/insertUser/';
+  private _getBacklogUrl = 'http://localhost/api/getBacklog/';
 
   constructor(private _http: HttpClient) { }
 
@@ -21,6 +22,10 @@ export class GamesApiService {
     const encodedData = JSON.stringify({'email': userObject.email, 'nickname': userObject.nickname, 'backlog': []});
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post<User>( this._insertUserUrl, encodedData, { headers: headers }).toPromise();
+  }
+
+  getBacklog(gameIds: string[]): Observable<IGame[]> {
+    return this._http.post<IGame[]>(this._getBacklogUrl, gameIds);
   }
 
   public sleep(ms) {

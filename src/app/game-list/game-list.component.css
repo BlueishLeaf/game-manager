@@ -2,3 +2,8 @@ form {
     text-align: center;
     margin: 20px;
 }
+
+.card-container {
+    margin: 20px auto;
+    width: 60%;
+}
