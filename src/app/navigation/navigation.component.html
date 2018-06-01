@@ -24,6 +24,15 @@
         <span class="fill"></span>
         <button mat-raised-button (click)="login()" *ngIf="!AuthService.isAuthenticated()">Login</button>
         <button mat-raised-button (click)="logout()" *ngIf="AuthService.isAuthenticated()">Logout</button>
+        <!-- <div *ngIf="currentUser">
+          <mat-card>
+            <img mat-card-image src="{{currentUser.image}}">
+            <mat-card-title>{{ currentUser.nickname }}</mat-card-title>
+            <mat-card-actions>
+                <button mat-raised-button (click)="logout()">Logout</button>
+              </mat-card-actions>
+          </mat-card>
+        </div> -->
       </mat-toolbar>
       <div class="container">
         <router-outlet></router-outlet>

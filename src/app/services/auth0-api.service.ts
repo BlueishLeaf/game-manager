@@ -5,6 +5,7 @@ import * as auth0 from 'auth0-js';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IUserData } from '../models/Users';
+import { GamesApiService } from './games-api.service';
 
 (window as any).global = window;
 
@@ -22,7 +23,7 @@ export class Auth0ApiService {
     scope: 'openid email profile'
   });
 
-  constructor(public router: Router, private _http: HttpClient) { }
+  constructor(public router: Router, private _http: HttpClient, private _gamesService: GamesApiService) { }
 
   public login(): void {
     this.auth0.authorize();
@@ -33,9 +34,9 @@ export class Auth0ApiService {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this._currentAccessToken = authResult.accessToken;
         this.setSession(authResult);
-        this.router.navigate(['/profile']);
+        this.router.navigate(['/browse']);
       } else if (err) {
-        this.router.navigate(['/profile']);
+        this.router.navigate(['/browse']);
         console.log(err);
       }
     });
@@ -47,10 +48,13 @@ export class Auth0ApiService {
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
+    this.getUserData().then(data => {
+      this._gamesService.insertUser(data);
+    });
   }
 
-  public async getUserData(): Promise<IUserData> {
-    await this.sleep(50);
+  public getUserData(): Promise<IUserData> {
+    // await this.sleep(100);
     const url = 'https://game-manager.eu.auth0.com/userinfo?access_token=' + this._currentAccessToken;
     return this._http.get<IUserData>(url).toPromise();
   }

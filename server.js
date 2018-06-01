@@ -67,7 +67,8 @@ app.post('/api/getBacklog', (req,res) => {
 });
 
 function insertUser(dbObject) {
-    MongoClient.connect(usersCollectionUrl, (err,db) => {
+    dbObject.image = 'https://image.ibb.co/ccq6Sd/default.png';
+    MongoClient.connect(usersCollectionUrl, { useNewUrlParser: true }, (err,db) => {
         const dbo = db.db('games');
         dbo.collection('user').insertOne(dbObject, (err,res) => {
             if (err) throw err;

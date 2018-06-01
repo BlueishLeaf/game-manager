@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { IGame } from '../models/IGame';
 import { IUserData, User } from '../models/Users';
 
@@ -18,10 +18,16 @@ export class GamesApiService {
     return this._http.get<IGame[]>(this._getGamesUrl);
   }
 
-  insertUser(userObject: IUserData): Promise<User> {
-    const encodedData = JSON.stringify({'email': userObject.email, 'nickname': userObject.nickname, 'backlog': []});
+  insertUser(userObject: IUserData): void {
+    const encodedData = JSON.stringify({
+      'email': userObject.email,
+      'nickname': userObject.nickname,
+      'backlog': []
+    });
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this._http.post<User>( this._insertUserUrl, encodedData, { headers: headers }).toPromise();
+    this._http.post<User>( this._insertUserUrl, encodedData, { headers: headers }).subscribe(data => {
+      sessionStorage.setItem('currentUser', JSON.stringify(new User( data.email, data.nickname, data.backlog)));
+    });
   }
 
   getBacklog(gameIds: string[]): Observable<IGame[]> {
