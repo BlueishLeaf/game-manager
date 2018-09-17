@@ -16,6 +16,7 @@
                 <ul *ngFor="let genre of game.genres">
                     <li>{{ genre }}</li>
                 </ul>
+                <button mat-raised-button (click)="addGameToBacklog(game._id)">Add to Backlog</button>
             </mat-card-content>
         </mat-card>
     </div>

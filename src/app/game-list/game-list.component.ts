@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GamesApiService } from '../services/games-api.service';
 import { IGame } from '../models/igame';
+import { User } from '../models/Users';
 
 @Component({
   selector: 'app-game-list',
@@ -10,6 +11,7 @@ import { IGame } from '../models/igame';
 export class GameListComponent implements OnInit {
   games: IGame[];
   fGames: IGame[];
+  currentUser: User;
 
   _listFilter: string;
   get listFilter(): string {
@@ -29,6 +31,7 @@ export class GameListComponent implements OnInit {
 
   ngOnInit() {
     this.getGames();
+    this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
   }
 
   getGames(): void {
@@ -40,5 +43,12 @@ export class GameListComponent implements OnInit {
   filterGames(searchTerm: string): IGame[] {
     searchTerm = searchTerm.toLocaleLowerCase();
     return this.games.filter((game: IGame) => game.title.toLocaleLowerCase().indexOf(searchTerm) !== -1);
+  }
+
+  addGameToBacklog(id): void {
+    console.log(id);
+    if (this.currentUser) {
+      alert(this.currentUser.nickname);
+    }
   }
 }
